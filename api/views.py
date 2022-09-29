@@ -7,6 +7,7 @@ from .serializers import TaskSerializer
 
 from .models import Task
 
+
 @api_view(['GET'])
 def apiOverview(request):
 	api_urls = {
@@ -19,17 +20,20 @@ def apiOverview(request):
 
 	return Response(api_urls)
 
+
 @api_view(['GET'])
 def taskList(request):
 	tasks = Task.objects.all()
 	serializer = TaskSerializer(tasks, many=True)
 	return Response(serializer.data)
 
+
 @api_view(['GET'])
 def taskDetail(request, pk):
 	tasks = Task.objects.get(id=pk)
 	serializer = TaskSerializer(tasks, many=False)
 	return Response(serializer.data)
+
 
 @api_view(['POST'])
 def taskCreate(request):
@@ -40,6 +44,7 @@ def taskCreate(request):
     
     return Response(serializer.data)
 
+
 @api_view(['GET','POST'])
 def taskUpdate(request, pk):
     task = Task.objects.get(id=pk)
@@ -49,6 +54,7 @@ def taskUpdate(request, pk):
         serializer.save()
     
     return Response(serializer.data)
+
 
 @api_view(['GET','DELETE'])
 def taskDelete(request, pk):
